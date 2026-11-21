@@ -8,22 +8,28 @@
 	},
 	"id": "local.auto-complete",
 	"name": "Auto Complete",
-	"version": "v1.0.0",
+	"version": "v1.1.0",
 	"developer": "local",
-	"description": "Noclip-based auto complete with a pause-menu toggle and built-in safe mode.",
+	"description": "Auto-jump bot plus noclip, with pause-menu toggles and built-in safe mode.",
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3"
 	},
 	"settings": {
+		"bot": {
+			"name": "Auto Jump Bot",
+			"description": "When ON, the bot plays by itself: it reads obstacles ahead and jumps/flies for every game mode (cube, ship, ball, UFO, wave, robot, spider, swing). Not perfect on very hard levels; combine with Noclip so it never dies. Platformer levels are not supported.",
+			"type": "bool",
+			"default": false
+		},
 		"enabled": {
-			"name": "Auto Complete",
-			"description": "When ON, the player cannot die, so every level (main or online) reaches 100%. Can also be toggled from the pause menu.",
+			"name": "Noclip",
+			"description": "When ON, the player cannot die. Combined with the bot, every level reaches 100%.",
 			"type": "bool",
 			"default": false
 		},
 		"pause-button": {
-			"name": "Show Pause Menu Toggle",
-			"description": "Show an ON/OFF checkbox in the pause menu.",
+			"name": "Show Pause Menu Toggles",
+			"description": "Show Bot and Noclip checkboxes in the pause menu.",
 			"type": "bool",
 			"default": true
 		}

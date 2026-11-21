@@ -36,6 +36,8 @@ jobs:
     name: Package builds
     runs-on: ubuntu-latest
     needs: ["build"]
+    permissions:
+      contents: write
     steps:
       - uses: geode-sdk/build-geode-mod/combine@main
         id: build
@@ -43,3 +45,15 @@ jobs:
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
+      - name: Publish .geode as a release (downloadable without login)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OUT_DIR: ${{ steps.build.outputs.build-output }}
+        run: |
+          files=$(find "$OUT_DIR" -name '*.geode')
+          test -n "$files"
+          gh release delete latest-build --cleanup-tag -y -R "$GITHUB_REPOSITORY" || true
+          gh release create latest-build $files -R "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Auto Complete (latest build)" \
+            --notes "Built from $GITHUB_SHA"
